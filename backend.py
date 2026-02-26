@@ -422,7 +422,6 @@ class HealthResponse(BaseModel):
     database: str
     github_token_present: bool
     gemini_api_key_present: bool
-    pathway_available: bool
     test_mode: bool
 
 class HistoryResponse(BaseModel):
