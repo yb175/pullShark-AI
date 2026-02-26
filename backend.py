@@ -12,13 +12,7 @@ import google.generativeai as genai
 import base64
 
 
-# Try importing Pathway (Linux/WSL required)
-try:
-    import pathway as pw
-    HAS_PATHWAY = True
-except ImportError:
-    print("⚠️ Pathway not installed. Using Python list processing fallback.")
-    HAS_PATHWAY = False
+
 
 # Try importing Supabase
 try:
@@ -53,19 +47,7 @@ TEST_MODE = os.getenv('TEST_MODE', 'false').lower() == 'true'
 USE_SUPABASE = HAS_SUPABASE and SUPABASE_URL and SUPABASE_KEY
 DB_TYPE = 'supabase' if USE_SUPABASE else 'sqlite'
 
-# ============================================================================
-# PATHWAY SCHEMA & MOCK DATA
-# ============================================================================
 
-if HAS_PATHWAY:
-    class BugSchema(pw.Schema):
-        """Pathway schema for bug records"""
-        issue_id: str
-        issue_title: str
-        issue_description: str
-        repo: str
-        pattern: str
-        solution: str
 
 SAMPLE_BUGS = [
     {
@@ -473,7 +455,6 @@ def health_check():
         database=DB_TYPE,
         github_token_present=bool(GITHUB_TOKEN),
         gemini_api_key_present=bool(GEMINI_API_KEY),
-        pathway_available=HAS_PATHWAY,
         test_mode=TEST_MODE
     )
 
@@ -581,5 +562,4 @@ if __name__ == "__main__":
     print(f"🦈 PullShark AI Backend Starting...")
     print(f"   Database: {DB_TYPE}")
     print(f"   Test Mode: {TEST_MODE}")
-    print(f"   Pathway: {'✅ Available' if HAS_PATHWAY else '❌ Not Available'}")
     uvicorn.run(app, host="0.0.0.0", port=8000)
