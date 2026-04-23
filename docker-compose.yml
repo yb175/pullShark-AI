@@ -5,6 +5,8 @@ services:
       dockerfile: Dockerfile
     command: python backend.py
     working_dir: /app
+    ports:
+      - "8000:8000"
     volumes:
       - ./:/app
     environment:

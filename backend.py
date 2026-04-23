@@ -439,14 +439,14 @@ def read_root():
         "message": "🦈 PullShark AI API",
         "version": "1.0.0",
         "endpoints": {
-            "health": "/health",
+            "health": "/api/health",
             "analyze": "/api/analyze",
             "history": "/api/history",
             "bugs": "/api/bugs/search"
         }
     }
 
-@app.get("/health", response_model=HealthResponse, tags=["Health"])
+@app.get("/api/health", response_model=HealthResponse, tags=["Health"])
 def health_check():
     """Check API health and configuration status"""
     return HealthResponse(
